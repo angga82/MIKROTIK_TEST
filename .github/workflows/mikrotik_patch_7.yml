@@ -81,6 +81,24 @@ jobs:
 
     - name: Patch mikrotik-${{ env.LATEST_VERSION }}.iso
       run: |
+       if [ "${{ matrix.arch }}" == "arm" ] || [ "${{ matrix.arch }}" == "mmips" ] || [ "${{ matrix.arch }}" == "mipsbe" ] || [ "${{ matrix.arch }}" == "smips" ] || [ "${{ matrix.arch }}" == "tile" ] || [ "${{ matrix.arch }}" == "ppc" ]; then
+          sudo -E python3 patch.py npk routeros.npk
+          sudo -E python3 npk.py sign routeros.npk routeros-7.16$ARCH.npk
+          sudo unzip routeros.zip -d tmp
+          NPK_FILES=$(find ./tmp/*.npk)
+          for file in $NPK_FILES; do
+              sudo -E python3 patch.py npk $file
+          done
+          for file in $NPK_FILES; do
+              sudo -E python3 npk.py sign $file $file
+          done
+          for file in $NPK_FILES; do
+              sudo -E python3 npk.py verify $file
+          done
+          cd ./tmp
+          sudo zip ../all_packages-${{ matrix.arch }}-$LATEST_VERSION.zip *.npk
+          cd ..
+        else
           sudo apt-get install -y mkisofs > /dev/null
           sudo mkdir ./iso 
           sudo mount -o loop,ro mikrotik.iso ./iso
