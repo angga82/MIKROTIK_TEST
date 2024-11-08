@@ -82,7 +82,7 @@ jobs:
     - name: Patch mikrotik-${{ env.LATEST_VERSION }}.iso
       run: |
         sudo apt-get install -y mkisofs > /dev/null
-        sudo mkdir ./iso 
+          sudo mkdir ./iso 
           sudo mount -o loop,ro mikrotik.iso ./iso
           sudo mkdir ./new_iso
           sudo cp -r ./iso/* ./new_iso/
