@@ -93,9 +93,9 @@ jobs:
         sudo mv ./new_iso/routeros-$LATEST_VERSION.npk ./
         sudo -E python3 patch.py npk routeros-$LATEST_VERSION.npk
         #sudo cp keygen.zip ./new_iso/
-        NPK_FILES=$(find ./new_iso/*.npk)
-        for file in $NPK_FILES; do
-        sudo -E python3 npk.py sign $file $file
+        #NPK_FILES=$(find ./new_iso/*.npk)
+        #for file in $NPK_FILES; do
+        #sudo -E python3 npk.py sign $file $file
         done
         #sudo cp routeros-$LATEST_VERSION.npk ./new_iso/
         #sudo -E python3 npk.py create ./new_iso/gps-$LATEST_VERSION.npk ./option-$LATEST_VERSION.npk option ./option.sfs -desc="busybox and ash"
