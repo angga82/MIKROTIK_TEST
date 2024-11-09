@@ -1,5 +1,6 @@
 
 import struct,zlib
+import argparse,os
 from datetime import datetime
 from dataclasses import dataclass
 from enum import IntEnum
@@ -25,6 +26,7 @@ class NpkPartID(IntEnum):
 @dataclass
 class NpkPartItem:
     id: NpkPartID
+    data: bytes|object
 import struct,zlib
 import argparse,os
 from datetime import datetime
